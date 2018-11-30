@@ -2,7 +2,7 @@ import React from 'react'
 import {Item, Button, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-const HorseDetail = ({horse, onClick, singleHorse, setHorseForSale}) => {
+const HorseDetail = ({horse, onClick, singleHorse, setHorseForSale, belongsToCurrentPlayer}) => {
   return(
     <Item.Group>
       <Item>
@@ -12,10 +12,18 @@ const HorseDetail = ({horse, onClick, singleHorse, setHorseForSale}) => {
           <Item.Meta>Age: {horse.age}</Item.Meta>
           <Item.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Item.Description>
           {horse.for_sale ? <Item.Description><Icon name="tag" />{horse.name} is currently for sale.</Item.Description> : null }
-            <Link to="/horses" >
-              <Button size="tiny">Back</Button>
-            </Link>
-            <Button size="tiny" onClick={() => setHorseForSale(horse)}>{horse.for_sale ? "Don't Sell" : "Sell"}</Button>
+          {belongsToCurrentPlayer ? (
+            <Button.Group size="tiny" fluid>
+              <Button size="tiny" as={Link} to="/horses">Back</Button>
+              <Button size="tiny" onClick={() => setHorseForSale(horse)}>{horse.for_sale ? "Don't Sell" : "Sell"}</Button>
+            </Button.Group>
+          ) : (
+            <Button.Group size="tiny" fluid>
+              <Button size="tiny" as={Link} to="/available_horses">Back</Button>
+              <Button size="tiny" onClick={null}>Purchase</Button>
+            </Button.Group>
+          )}
+
         </Item.Content>
       </Item>
     </Item.Group>

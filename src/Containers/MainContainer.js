@@ -16,8 +16,12 @@ class MainContainer extends Component {
 
   displayHorse(props) {
     if(this.props.horses.length > 0) {
-      const horse = this.props.horses.find(horse => horse.id === parseInt(props.match.params.id))
-      return <HorseDetail horse={horse} setHorseForSale={this.props.setHorseForSale}/>
+      const horse = this.props.allHorses.find(horse => horse.id === parseInt(props.match.params.id))
+      return <HorseDetail
+        horse={horse}
+        setHorseForSale={this.props.setHorseForSale}
+        belongsToCurrentPlayer={this.props.playerId === horse.player_id}
+      />
     } else {
       return (
         <Loader active inline>Loading</Loader>

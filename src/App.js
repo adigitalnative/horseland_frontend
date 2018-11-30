@@ -11,7 +11,9 @@ class App extends Component {
       name: null,
       email: null,
       horses: [],
-      available_horses: []
+      available_horses: [],
+      allHorses: [],
+      playerId: null
     }
   }
 
@@ -23,7 +25,9 @@ class App extends Component {
           name: data.name,
           email: data.email,
           horses: data.horses,
-          available_horses: data.available_horses
+          available_horses: data.available_horses,
+          allHorses: [...data.horses, ...data.available_horses],
+          playerId: data.id
         })
       })
   }
@@ -38,7 +42,8 @@ class App extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({
-          horses: data
+          horses: data,
+          allHorses: [...data, ...this.state.available_horses]
         })
       })
   }
@@ -51,6 +56,8 @@ class App extends Component {
           horses={this.state.horses}
           setHorseForSale={this.setHorseForSale}
           available_horses={this.state.available_horses}
+          allHorses={this.state.allHorses}
+          playerId={this.state.playerId}
         />
       </div>
     );
