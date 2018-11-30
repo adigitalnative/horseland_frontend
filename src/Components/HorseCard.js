@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card, Image, Button, Icon} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const HorseCard = ({horse, onClick, singleHorse}) => {
   return(
@@ -15,7 +16,9 @@ const HorseCard = ({horse, onClick, singleHorse}) => {
         <Card.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button fluid size="tiny" onClick={() => onClick(horse)}>Details</Button>
+        <Link to={`/horses/${horse.id}`}>
+          <Button fluid size="tiny">Details</Button>
+        </Link>
       </Card.Content>
     </Card>
   )

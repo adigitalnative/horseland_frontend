@@ -1,5 +1,6 @@
 import React from 'react'
 import {Item, Button, Icon} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const HorseDetail = ({horse, onClick, singleHorse}) => {
   return(
@@ -12,9 +13,9 @@ const HorseDetail = ({horse, onClick, singleHorse}) => {
           <Item.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Item.Description>
 
 
-          <Button fluid size="tiny" onClick={() => onClick(horse)}>
-            Back
-          </Button>
+          <Link to="/horses" >
+            <Button fluid size="tiny">Back</Button>
+          </Link>
         </Item.Content>
       </Item>
     </Item.Group>
