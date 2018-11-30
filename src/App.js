@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './App.css';
 import Header from './Containers/Header'
 import MainContainer from './Containers/MainContainer'
 
@@ -12,6 +11,7 @@ class App extends Component {
       name: null,
       email: null,
       horses: [],
+      available_horses: []
     }
   }
 
@@ -22,7 +22,8 @@ class App extends Component {
         this.setState({
           name: data.name,
           email: data.email,
-          horses: data.horses
+          horses: data.horses,
+          available_horses: data.available_horses
         })
       })
   }
@@ -49,6 +50,7 @@ class App extends Component {
         <MainContainer
           horses={this.state.horses}
           setHorseForSale={this.setHorseForSale}
+          available_horses={this.state.available_horses}
         />
       </div>
     );

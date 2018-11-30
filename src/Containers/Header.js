@@ -12,7 +12,7 @@ const Header = ({name}) => {
           <Menu.Item as={Link} to="/horses">
             Your Horses
           </Menu.Item>
-          <Menu.Item as='a'>
+          <Menu.Item as={Link} to="/available_horses">
             Horses for Sale
           </Menu.Item>
           {

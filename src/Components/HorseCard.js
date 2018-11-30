@@ -13,7 +13,6 @@ const HorseCard = ({horse, onClick, singleHorse}) => {
           {horse.for_sale ? <Icon name="tag" /> : null }
         </Card.Header>
         <Card.Meta>Age: {horse.age}</Card.Meta>
-        <Card.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Card.Description>
       </Card.Content>
       <Card.Content extra>
         <Link to={`/horses/${horse.id}`}>
