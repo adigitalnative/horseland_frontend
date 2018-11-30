@@ -1,5 +1,5 @@
 import React from 'react'
-import {Menu, Container, Icon} from 'semantic-ui-react'
+import {Menu, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const Header = ({name}) => {

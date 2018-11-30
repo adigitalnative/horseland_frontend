@@ -3,7 +3,7 @@ import './App.css';
 import Header from './Containers/Header'
 import MainContainer from './Containers/MainContainer'
 
-URL = "http://localhost:3001/api/v1/"
+const URL = "http://localhost:3001/api/v1/"
 
 class App extends Component {
   constructor() {

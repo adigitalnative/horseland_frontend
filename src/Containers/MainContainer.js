@@ -1,8 +1,7 @@
 import React, {Component} from 'react'
-import {Route, Switch} from 'react-router-dom'
+import {Route} from 'react-router-dom'
 import {Container} from 'semantic-ui-react'
 import PlayerHorseList from './PlayerHorseList'
-import HorseCard from '../Components/HorseCard'
 
 class MainContainer extends Component {
   constructor() {

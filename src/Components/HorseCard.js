@@ -15,9 +15,7 @@ const HorseCard = ({horse, onClick, singleHorse}) => {
         <Card.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <Button fluid size="tiny" onClick={() => onClick(horse)}>
-          {singleHorse ? "Back" : "Details"}
-        </Button>
+        <Button fluid size="tiny" onClick={() => onClick(horse)}>Details</Button>
       </Card.Content>
     </Card>
   )
