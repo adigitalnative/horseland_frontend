@@ -1,8 +1,8 @@
-import React from 'react'
-import {Menu, Icon} from 'semantic-ui-react'
+import React, {Fragment} from 'react'
+import {Menu, Icon, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-const Header = ({name}) => {
+const Header = ({name, balance}) => {
   return(
     <div>
       <Menu inverted>
@@ -14,9 +14,13 @@ const Header = ({name}) => {
           </Menu.Item>
           {
             name ? (
-              <Menu.Item position="right">
-                <Icon name="user outline"/> {name}
-              </Menu.Item>
+                <Menu.Item position="right">
+                  <Icon name="user outline"/> {name}
+                  <Divider vertical />
+
+                  <Icon name="dollar sign" /> {balance}
+
+                </Menu.Item>
             ) : null
           }
 

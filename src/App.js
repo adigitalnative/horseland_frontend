@@ -13,7 +13,8 @@ class App extends Component {
       horses: [],
       available_horses: [],
       allHorses: [],
-      playerId: null
+      playerId: null,
+      balance: null
     }
   }
 
@@ -27,7 +28,8 @@ class App extends Component {
           horses: data.horses,
           available_horses: data.available_horses,
           allHorses: [...data.horses, ...data.available_horses],
-          playerId: data.id
+          playerId: data.id,
+          balance: data.bank_balance
         })
       })
   }
@@ -71,7 +73,9 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Header name={this.state.name}/>
+        <Header
+          name={this.state.name}
+          balance={this.state.balance}/>
         <MainContainer
           horses={this.state.horses}
           setHorseForSale={this.setHorseForSale}
