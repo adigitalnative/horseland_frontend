@@ -9,11 +9,8 @@ const Header = ({name}) => {
           <Menu.Item as={Link} to="/" header>
             Horseland
           </Menu.Item>
-          <Menu.Item as={Link} to="/horses">
-            Your Horses
-          </Menu.Item>
-          <Menu.Item as={Link} to="/available_horses">
-            Horses for Sale
+          <Menu.Item as={Link} to="/">
+            Horses
           </Menu.Item>
           {
             name ? (
