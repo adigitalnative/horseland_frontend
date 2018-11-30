@@ -27,12 +27,28 @@ class App extends Component {
       })
   }
 
+  setHorseForSale = horse => {
+    fetch(URL + `players/1/horses/${horse.id}/toggle_for_sale`, {
+      method: "PATCH",
+      headers: {
+        "Application-Content":"application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(data => {
+        this.setState({
+          horses: data
+        })
+      })
+  }
+
   render() {
     return (
       <div>
         <Header name={this.state.name}/>
         <MainContainer
           horses={this.state.horses}
+          setHorseForSale={this.setHorseForSale}
         />
       </div>
     );

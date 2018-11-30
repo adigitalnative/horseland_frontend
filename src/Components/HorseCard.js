@@ -10,7 +10,7 @@ const HorseCard = ({horse, onClick, singleHorse}) => {
         <Card.Header>
           {horse.name}
           {horse.gender === "female" ? <Icon name="venus" /> : <Icon name="mars" />}
-
+          {horse.for_sale ? <Icon name="tag" /> : null }
         </Card.Header>
         <Card.Meta>Age: {horse.age}</Card.Meta>
         <Card.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Card.Description>

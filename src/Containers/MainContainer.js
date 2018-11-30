@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {Route} from 'react-router-dom'
-import {Container} from 'semantic-ui-react'
+import {Container, Loader} from 'semantic-ui-react'
 import PlayerHorseList from './PlayerHorseList'
 import HorseDetail from '../Components/HorseDetail'
 
@@ -15,10 +15,11 @@ class MainContainer extends Component {
   displayHorse(props) {
     if(this.props.horses.length > 0) {
       const horse = this.props.horses.find(horse => horse.id === parseInt(props.match.params.id))
-      return <HorseDetail horse={horse} />
+      return <HorseDetail horse={horse} setHorseForSale={this.props.setHorseForSale}/>
     } else {
-      return null
-      // Should give a loading thing
+      return (
+        <Loader active inline>Loading</Loader>
+      )
     }
   }
 
@@ -32,6 +33,7 @@ class MainContainer extends Component {
               currentHorse={this.state.currentHorse}
               setCurrentHorse={this.setCurrentHorse}
               clearCurrentHorse={this.clearCurrentHorse}
+              setHorseForSale={this.props.setHorseForSale}
             />
           ) }/>
           <Route exact path='/' component={null} />
