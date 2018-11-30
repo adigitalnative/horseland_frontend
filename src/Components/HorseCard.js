@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom'
 const HorseCard = ({horse, onClick, singleHorse}) => {
   return(
     <Card>
-      <Image src="https://via.placeholder.com/200" />
+      <Image src={horse.image_url} />
       <Card.Content>
         <Card.Header>
           {horse.name}

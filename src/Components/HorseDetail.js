@@ -8,7 +8,7 @@ const HorseDetail = ({horse, onClick, singleHorse, setHorseForSale, belongsToCur
       <Divider horizontal>{horse.name}</Divider>
       <Item.Group>
         <Item>
-          <Item.Image size="medium" src="https://via.placeholder.com/200" />
+          <Item.Image size="medium" src={horse.image_url} />
           <Item.Content>
             <Item.Header>{horse.name} {horse.gender === "female" ? <Icon name="venus" /> : <Icon name="mars" />}</Item.Header>
             <Item.Meta>Age: {horse.age}</Item.Meta>
