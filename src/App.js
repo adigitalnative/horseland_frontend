@@ -36,7 +36,7 @@ class App extends Component {
     fetch(URL + `players/1/horses/${horse.id}/toggle_for_sale`, {
       method: "PATCH",
       headers: {
-        "Application-Content":"application/json"
+        "Content-Type":"application/json"
       }
     })
       .then(response => response.json())
@@ -46,6 +46,26 @@ class App extends Component {
           allHorses: [...data, ...this.state.available_horses]
         })
       })
+  }
+
+  purchaseHorse = horse => {
+    fetch(URL + `purchase_horse`, {
+      method: "PATCH",
+      headers: {
+        "Application-Content":"application/json"
+      },
+      body: JSON.stringify({
+        playerId: this.state.playerId,
+        horseId: horse.id
+      })
+    })
+      .then(response => response.json())
+      .then(data => this.setState({
+        horses: data.horses,
+        available_horses: data.available_horses,
+        allHorses: [...data.horses, ...data.available_horses]
+        // How to send this to the 'your horses' page here?
+      }))
   }
 
   render() {
@@ -58,6 +78,7 @@ class App extends Component {
           available_horses={this.state.available_horses}
           allHorses={this.state.allHorses}
           playerId={this.state.playerId}
+          purchaseHorse = {this.purchaseHorse}
         />
       </div>
     );

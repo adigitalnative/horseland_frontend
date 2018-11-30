@@ -2,7 +2,7 @@ import React from 'react'
 import {Item, Button, Icon} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-const HorseDetail = ({horse, onClick, singleHorse, setHorseForSale, belongsToCurrentPlayer}) => {
+const HorseDetail = ({horse, onClick, singleHorse, setHorseForSale, belongsToCurrentPlayer, purchaseHorse}) => {
   return(
     <Item.Group>
       <Item>
@@ -20,7 +20,7 @@ const HorseDetail = ({horse, onClick, singleHorse, setHorseForSale, belongsToCur
           ) : (
             <Button.Group size="tiny" fluid>
               <Button size="tiny" as={Link} to="/available_horses">Back</Button>
-              <Button size="tiny" onClick={null}>Purchase</Button>
+              <Button size="tiny" onClick={() => purchaseHorse(horse)}>Purchase</Button>
             </Button.Group>
           )}
 

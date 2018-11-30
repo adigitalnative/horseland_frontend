@@ -21,6 +21,7 @@ class MainContainer extends Component {
         horse={horse}
         setHorseForSale={this.props.setHorseForSale}
         belongsToCurrentPlayer={this.props.playerId === horse.player_id}
+        purchaseHorse={this.props.purchaseHorse}
       />
     } else {
       return (
@@ -32,7 +33,12 @@ class MainContainer extends Component {
   render() {
     return(
       <Container>
-        <Route exact path="/available_horses" render={() => <SaleList horses={this.props.available_horses}/>} />
+        <Route exact
+          path="/available_horses"
+          render={() => <SaleList
+            horses={this.props.available_horses}
+          />}
+        />
         <Route exact path='/horses/:id' render ={(props) => this.displayHorse(props)} />
         <Route exact path='/horses' render={()=> (
           <PlayerHorseList
