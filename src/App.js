@@ -12,7 +12,6 @@ class App extends Component {
       name: null,
       email: null,
       horses: [],
-      currentHorse: null
     }
   }
 
@@ -28,23 +27,12 @@ class App extends Component {
       })
   }
 
-  setCurrentHorse = (horse) => {
-    this.setState({ currentHorse: horse })
-  }
-
-  clearCurrentHorse = () => {
-    this.setState({ currentHorse: null })
-  }
-
   render() {
     return (
       <div>
         <Header name={this.state.name}/>
         <MainContainer
           horses={this.state.horses}
-          currentHorse={this.state.currentHorse}
-          setCurrentHorse={this.setCurrentHorse}
-          clearCurrentHorse={this.clearCurrentHorse}
         />
       </div>
     );
