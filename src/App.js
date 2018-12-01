@@ -14,7 +14,8 @@ class App extends Component {
       available_horses: [],
       allHorses: [],
       playerId: null,
-      balance: null
+      balance: null,
+      transactions: null
     }
   }
 
@@ -27,9 +28,9 @@ class App extends Component {
           email: data.email,
           horses: data.horses,
           available_horses: data.available_horses,
-          allHorses: [...data.horses, ...data.available_horses],
           playerId: data.id,
-          balance: data.bank_balance
+          balance: data.bank_balance,
+          transactions: data.transactions
         })
       })
   }
@@ -45,7 +46,6 @@ class App extends Component {
       .then(data => {
         this.setState({
           horses: data,
-          allHorses: [...data, ...this.state.available_horses]
         })
       })
   }
@@ -65,9 +65,26 @@ class App extends Component {
       .then(data => this.setState({
         horses: data.horses,
         available_horses: data.available_horses,
-        allHorses: [...data.horses, ...data.available_horses]
+        transactions: data.transactions
         // How to send this to the 'your horses' page here?
       }))
+  }
+
+  updateHorse = horseParams => {
+    fetch(URL + `horses/${horseParams.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify(horseParams)
+    }).then(response => response.json())
+    .then(data => this.setState({
+      horses: data
+    }))
+  }
+
+  allHorses = () => {
+    return [...this.state.horses, ...this.state.available_horses]
   }
 
   render() {
@@ -80,9 +97,11 @@ class App extends Component {
           horses={this.state.horses}
           setHorseForSale={this.setHorseForSale}
           available_horses={this.state.available_horses}
-          allHorses={this.state.allHorses}
+          allHorses={this.allHorses()}
           playerId={this.state.playerId}
           purchaseHorse = {this.purchaseHorse}
+          transactions = {this.state.transactions}
+          updateHorse = {this.updateHorse}
         />
       </div>
     );

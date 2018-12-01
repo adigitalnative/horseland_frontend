@@ -3,7 +3,15 @@ import HorseCard from '../Components/HorseCard'
 import HorseDetail from '../Components/HorseDetail'
 import {Card, Divider} from 'semantic-ui-react'
 
-const PlayerHorseList = ({horses, currentHorse, setCurrentHorse, clearCurrentHorse, setHorseForSale, availableHorses}) => {
+const PlayerHorseList = ({
+                            horses,
+                            currentHorse,
+                            setCurrentHorse,
+                            clearCurrentHorse,
+                            setHorseForSale,
+                            availableHorses,
+                            updateHorse
+                          }) => {
   return(
     <div>
       <Divider horizontal>Your Horses</Divider>

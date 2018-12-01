@@ -14,7 +14,7 @@ const Header = ({name, balance}) => {
           </Menu.Item>
           {
             name ? (
-                <Menu.Item position="right">
+                <Menu.Item position="right" as={Link} to="/profile">
                   <Icon name="user outline"/> {name}
                   <Divider vertical />
 

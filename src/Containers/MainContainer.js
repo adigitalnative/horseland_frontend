@@ -4,6 +4,7 @@ import {Container, Loader} from 'semantic-ui-react'
 import PlayerHorseList from './PlayerHorseList'
 import HorseDetail from '../Components/HorseDetail'
 import Landing from '../Components/Landing'
+import PlayerProfile from "../Components/PlayerProfile"
 
 class MainContainer extends Component {
   constructor() {
@@ -21,6 +22,7 @@ class MainContainer extends Component {
         setHorseForSale={this.props.setHorseForSale}
         belongsToCurrentPlayer={this.props.playerId === horse.player_id}
         purchaseHorse={this.props.purchaseHorse}
+        updateHorse={this.props.updateHorse}
       />
     } else {
       return (
@@ -43,6 +45,7 @@ class MainContainer extends Component {
             availableHorses={this.props.available_horses}
           />
         ) }/>
+        <Route exact path='/profile' render={() => <PlayerProfile horses={this.props.horses} transactions={this.props.transactions} />} />
       </Container>
     )
   }
