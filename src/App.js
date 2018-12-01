@@ -65,8 +65,8 @@ class App extends Component {
       .then(data => this.setState({
         horses: data.horses,
         available_horses: data.available_horses,
-        transactions: data.transactions
-        // How to send this to the 'your horses' page here?
+        transactions: data.transactions,
+        balance: data.bank_balance
       }))
   }
 

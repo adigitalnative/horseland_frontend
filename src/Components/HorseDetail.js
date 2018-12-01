@@ -16,7 +16,7 @@ class HorseDetail extends Component {
               <Item.Header>{horse.name} {horse.gender === "female" ? <Icon name="venus" /> : <Icon name="mars" />}</Item.Header>
               <Item.Meta>Age: {horse.age}</Item.Meta>
               <Item.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Item.Description>
-              {horse.for_sale ? <Item.Description><Icon name="tag" />{horse.name} is currently for sale.</Item.Description> : null }
+              {horse.for_sale ? <Item.Description><Icon name="tag" />For Sale: ${horse.sale_price}</Item.Description> : null }
               {belongsToCurrentPlayer ? (
                 <Button.Group size="tiny" fluid>
                   <Button as={Link} to="/">Back</Button>
