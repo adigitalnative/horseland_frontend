@@ -19,20 +19,24 @@ class App extends Component {
     }
   }
 
+  // This needs to take into consideration a failed login!
   componentDidMount() {
     fetch(URL + "players/1")
       .then(response => response.json())
       .then(data => {
-        this.setState({
-          name: data.name,
-          email: data.email,
-          horses: data.horses,
-          available_horses: data.available_horses,
-          playerId: data.id,
-          balance: data.bank_balance,
-          transactions: data.transactions
-        })
-      })
+        if (data.message !== "Please log in") {
+          this.setState({
+            name: data.name,
+            email: data.email,
+            horses: data.horses,
+            available_horses: data.available_horses,
+            playerId: data.id,
+            balance: data.bank_balance,
+            transactions: data.transactions
+          })
+        }
+      }
+    )
   }
 
   setHorseForSale = horse => {
