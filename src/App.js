@@ -28,17 +28,28 @@ class App extends Component {
   }
 
   updateCurrentPlayer = (player) => {
-    this.setState({
-      currentUser: true,
-      name: player.name,
-      email: player.email,
-      horses: player.horses,
-      available_horses: player.available_horses,
-      playerId: player.id,
-      balance: player.bank_balance,
-      transactions: player.transactions,
-      description: player.description
+    fetch(URL + "horses/available",{
+      method: "GET",
+      headers: {
+        "Authorization" : `Bearer ${this.myToken()}`
+      }
     })
+    .then(response => response.json())
+    .then(availHorses => {
+      this.setState({
+        currentUser: true,
+        name: player.name,
+        email: player.email,
+        horses: player.horses,
+        playerId: player.id,
+        available_horses: availHorses,
+        balance: player.bank_balance,
+        transactions: player.transactions,
+        description: player.description
+      })
+    })
+
+
   }
 
   myToken = () => localStorage.getItem('token')
@@ -88,12 +99,23 @@ class App extends Component {
       })
     })
       .then(response => response.json())
-      .then(data => this.setState({
-        horses: data.horses,
-        available_horses: data.available_horses,
-        transactions: data.transactions,
-        balance: data.bank_balance
-      }))
+      .then(horseData => {
+        fetch(URL + "horses/available",{
+          method: "GET",
+          headers: {
+            "Authorization" : `Bearer ${this.myToken()}`
+          }
+        }).then(response => response.json())
+        .then(availableHorses => {
+          this.setState({
+            horses: horseData.horses,
+            transactions: horseData.transactions,
+            balance: horseData.bank_balance,
+            available_horses: availableHorses
+          })
+        })
+      }
+    )
   }
 
   updateHorse = horseParams => {
@@ -165,6 +187,17 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(data => this.updateCurrentPlayer(data))
+  }
+
+  setAvailableHorses = () => {
+    fetch(URL + "horses/available",{
+      method: "GET",
+      headers: {
+        "Authorization" : `Bearer ${this.myToken()}`
+      }
+    })
+    .then(response => response.json())
+    .then(data => console.log(data))
   }
 
   render() {

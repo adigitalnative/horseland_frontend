@@ -6,6 +6,7 @@ import HorseFormModal from './HorseFormModal'
 class HorseDetail extends Component {
   render() {
     let {horse, setHorseForSale, belongsToCurrentPlayer, purchaseHorse, updateHorse} = this.props
+    console.log(horse)
     return(
       <Fragment>
         <Divider horizontal>{horse.name}</Divider>
@@ -16,7 +17,12 @@ class HorseDetail extends Component {
               <Item.Header>{horse.name} {horse.gender === "female" ? <Icon name="venus" /> : <Icon name="mars" />}</Item.Header>
               <Item.Meta>Age: {horse.age}</Item.Meta>
               <Item.Description>{horse.name} is a {horse.color} {horse.breed} horse.</Item.Description>
-              {horse.for_sale ? <Item.Description><Icon name="tag" />For Sale: ${horse.sale_price}</Item.Description> : null }
+              <Item.Description>{horse.for_sale ? <Item.Description><Icon name="tag" />For Sale: ${horse.sale_price}</Item.Description> : null }</Item.Description>
+              { !belongsToCurrentPlayer ? (
+                <Item.Description>
+                  <Link to={`/player/${horse.player_id}`}>Player Profile</Link>
+                </Item.Description>
+              ): null }
               {belongsToCurrentPlayer ? (
                 <Button.Group size="tiny" fluid>
                   <Button as={Link} to="/">Back</Button>
