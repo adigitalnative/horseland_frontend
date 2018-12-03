@@ -2,7 +2,7 @@ import React from 'react'
 import {Header, Image, Divider, Card, Item} from 'semantic-ui-react'
 import HorseCard from './HorseCard'
 
-const PlayerProfile = ({horses, transactions}) => {
+const PlayerProfile = ({horses, transactions, description}) => {
   return(
     <div>
       <Header as="h2" icon textAlign='center' >
@@ -11,7 +11,7 @@ const PlayerProfile = ({horses, transactions}) => {
       </Header>
       <Divider></Divider>
       <Header as="h3" textAlign="center">
-        <Header.Content>This may be where your HTML area can be...</Header.Content>
+        <div dangerouslySetInnerHTML={{__html: description }} />
       </Header>
       <Divider horizontal>Your Horses</Divider >
       {<Card.Group itemsPerRow={5}>

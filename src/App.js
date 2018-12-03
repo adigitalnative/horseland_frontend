@@ -22,11 +22,13 @@ class App extends Component {
       available_horses: [],
       playerId: null,
       balance: null,
-      transactions: null
+      transactions: null,
+      description: null
     }
   }
 
   updateCurrentPlayer = (player) => {
+    console.log(player)
     this.setState({
       currentUser: true,
       name: player.name,
@@ -35,7 +37,8 @@ class App extends Component {
       available_horses: player.available_horses,
       playerId: player.id,
       balance: player.bank_balance,
-      transactions: player.transactions
+      transactions: player.transactions,
+      description: player.description
     })
   }
 
@@ -147,7 +150,8 @@ class App extends Component {
       available_horses: [],
       playerId: null,
       balance: null,
-      transactions: null
+      transactions: null,
+      description: null
      })
   }
 
@@ -167,6 +171,7 @@ class App extends Component {
               <PlayerProfile
                 horses={this.state.horses}
                 transactions={this.state.transactions}
+                description={this.state.description}
               />
             ) : this.redirectToLogin() } />
             <Route exact path="/login" render={() => this.state.currentUser ?
