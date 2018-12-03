@@ -138,6 +138,20 @@ class App extends Component {
     return <Redirect to="/profile" />
   }
 
+  logout = () => {
+    localStorage.removeItem('token');
+    this.setState({
+      currentUser: null,
+      name: null,
+      email: null,
+      horses: [],
+      available_horses: [],
+      playerId: null,
+      balance: null,
+      transactions: null
+     })
+  }
+
   render() {
     return(
       <Fragment>

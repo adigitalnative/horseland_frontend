@@ -2,7 +2,8 @@ import React from 'react'
 import {Menu, Icon, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-const Nav = (props) => {  
+const Nav = (props) => {
+  console.log(props)
   return(
     <div>
       <Menu inverted>
@@ -19,7 +20,7 @@ const Nav = (props) => {
                   <Divider vertical />
 
                   <Icon name="dollar sign" /> {props.balance}
-
+                  <button onClick={props.logout}>Logout</button>
                 </Menu.Item>
             ) : null
           }
