@@ -5,6 +5,8 @@ import PlayerProfile from "./Components/PlayerProfile"
 import Nav from './Components/Nav'
 import PlayerHorseList from './Containers/PlayerHorseList'
 import HorseDetail from './Components/HorseDetail'
+import LoginForm from './Components/LoginForm'
+import NotFound from './Components/NotFound'
 
 
 const URL = "http://localhost:3001/api/v1/"
@@ -13,6 +15,7 @@ class App extends Component {
   constructor() {
     super()
     this.state={
+      currentUser: null,
       name: null,
       email: null,
       horses: [],
@@ -23,24 +26,39 @@ class App extends Component {
     }
   }
 
+  updateCurrentPlayer = (player) => {
+    this.setState({
+      currentUser: true,
+      name: player.name,
+      email: player.email,
+      horses: player.horses,
+      available_horses: player.available_horses,
+      playerId: player.id,
+      balance: player.bank_balance,
+      transactions: player.transactions
+    })
+  }
+
+
+
   // This needs to take into consideration a failed login!
   componentDidMount() {
-    fetch(URL + "players/1")
-      .then(response => response.json())
-      .then(data => {
-        if (data.message !== "Please log in") {
-          this.setState({
-            name: data.name,
-            email: data.email,
-            horses: data.horses,
-            available_horses: data.available_horses,
-            playerId: data.id,
-            balance: data.bank_balance,
-            transactions: data.transactions
-          })
+    let token = localStorage.getItem('token')
+    if(token) {
+      fetch(URL + "player", {
+        method: "GET",
+        header: {
+          "Authentication" : `Bearer ${token}`
         }
-      }
-    )
+      }).then(res => res.json())
+      .then(data => {
+        console.log(data)
+        // Set the data apropriately
+      })
+    } else {
+      console.log("No Token")
+    }
+
   }
 
   setHorseForSale = horse => {
@@ -112,6 +130,14 @@ class App extends Component {
     }
   }
 
+  redirectToLogin = () => {
+    return <Redirect to="/login" />
+  }
+
+  redirectToProfile = () => {
+    return <Redirect to="/profile" />
+  }
+
   render() {
     return(
       <Fragment>
@@ -123,49 +149,30 @@ class App extends Component {
       />
         <Container>
           <Switch>
-            <Route exact path="/" render={() => <Redirect to="/profile" /> } />
-            <Route exact path="/profile" render={() => (
+            <Route exact path="/" render={() => this.redirectToProfile() } />
+            <Route exact path="/profile" render={() => this.state.currentUser ? (
               <PlayerProfile
                 horses={this.state.horses}
                 transactions={this.state.transactions}
               />
-            )} />
-            <Route exact path="/horses" render={() => <PlayerHorseList
+            ) : this.redirectToLogin() } />
+            <Route exact path="/login" render={() => this.state.currentUser ?
+              this.redirectToProfile() :
+              <LoginForm updateCurrentPlayer={this.updateCurrentPlayer} />}
+            />
+            <Route exact path="/horses" render={() => this.state.currentUser ? (<PlayerHorseList
               horses={this.state.horses}
               currentHorse={this.state.currentHorse}
               availableHorses={this.state.available_horses}
               setCurrentHorse={this.setCurrentHorse}
-            />} />
-            <Route exact path="/horses/:id" render={(event) => this.displayHorse(event.match.params.id)} />
+            />) : this.redirectToLogin() } />
+            <Route exact path="/horses/:id" render={(event) => this.state.currentUser ? this.displayHorse(event.match.params.id) : this.redirectToLogin()} />
+            <Route component={NotFound} />
           </Switch>
         </Container>
       </Fragment>
     )
   }
-
-  // Will need to fix this!
-  //
-
-
-  // render() {
-  //   return (
-  //     <div>
-  //       <Header
-  //         name={this.state.name}
-  //         balance={this.state.balance}/>
-  //       <MainContainer
-  //         horses={this.state.horses}
-  //         setHorseForSale={this.setHorseForSale}
-  //         available_horses={this.state.available_horses}
-  //         allHorses={this.allHorses()}
-  //         playerId={this.state.playerId}
-  //         purchaseHorse = {this.purchaseHorse}
-  //         transactions = {this.state.transactions}
-  //         updateHorse = {this.updateHorse}
-  //       />
-  //     </div>
-  //   );
-  // }
 }
 
 export default App;
