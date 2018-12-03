@@ -2,7 +2,7 @@ import React from 'react'
 import {Menu, Icon, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-const Nav = (props) => {
+const Nav = (props) => {  
   return(
     <div>
       <Menu inverted>
@@ -13,9 +13,9 @@ const Nav = (props) => {
             Horses
           </Menu.Item>
           {
-            props.name ? (
+            props.playerName ? (
                 <Menu.Item position="right" as={Link} to="/profile">
-                  <Icon name="user outline"/> {props.name}
+                  <Icon name="user outline"/> {props.playerName}
                   <Divider vertical />
 
                   <Icon name="dollar sign" /> {props.balance}

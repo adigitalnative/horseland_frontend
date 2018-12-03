@@ -5,7 +5,7 @@ import HorseFormModal from './HorseFormModal'
 
 class HorseDetail extends Component {
   render() {
-    let {horse, onClick, singleHorse, setHorseForSale, belongsToCurrentPlayer, purchaseHorse, updateHorse} = this.props
+    let {horse, setHorseForSale, belongsToCurrentPlayer, purchaseHorse, updateHorse} = this.props
     return(
       <Fragment>
         <Divider horizontal>{horse.name}</Divider>

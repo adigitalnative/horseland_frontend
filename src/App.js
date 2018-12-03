@@ -1,6 +1,4 @@
 import React, { Component, Fragment } from 'react';
-import Header from './Containers/Header'
-import MainContainer from './Containers/MainContainer'
 import {Route, Switch, Redirect} from 'react-router-dom'
 import {Container, Loader} from 'semantic-ui-react'
 import PlayerProfile from "./Components/PlayerProfile"
@@ -102,6 +100,10 @@ class App extends Component {
       const horse = this.allHorses().find(horse => horse.id === parseInt(horseId))
       return <HorseDetail
         horse={horse}
+        belongsToCurrentPlayer={this.state.playerId === horse.player_id}
+        setHorseForSale={this.setHorseForSale}
+        purchaseHorse={this.purchaseHorse}
+        updateHorse={this.updateHorse}
       />
     } else {
       return (
@@ -110,27 +112,15 @@ class App extends Component {
     }
   }
 
-  // displayHorse(props) {
-  //   if(this.props.horses.length > 0) {
-  //     const horse = this.props.allHorses.find(horse => horse.id === parseInt(props.match.params.id))
-  //     return <HorseDetail
-  //       horse={horse}
-  //       setHorseForSale={this.props.setHorseForSale}
-  //       belongsToCurrentPlayer={this.props.playerId === horse.player_id}
-  //       purchaseHorse={this.props.purchaseHorse}
-  //       updateHorse={this.props.updateHorse}
-  //     />
-  //   } else {
-  //     return (
-  //       <Loader active inline>Loading</Loader>
-  //     )
-  //   }
-  // }
-
   render() {
     return(
       <Fragment>
-      <Nav logged_in={!!this.state.currentUser} logout={this.logout} />
+      <Nav
+        logged_in={!!this.state.currentUser}
+        logout={this.logout}
+        playerName={this.state.name}
+        balance={this.state.balance}
+      />
         <Container>
           <Switch>
             <Route exact path="/" render={() => <Redirect to="/profile" /> } />
