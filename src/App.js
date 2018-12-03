@@ -28,7 +28,6 @@ class App extends Component {
   }
 
   updateCurrentPlayer = (player) => {
-    console.log(player)
     this.setState({
       currentUser: true,
       name: player.name,
@@ -155,6 +154,19 @@ class App extends Component {
      })
   }
 
+  updatePlayerDesc = (desc) => {
+    fetch(URL + "player", {
+      method: "PATCH",
+      headers: {
+        "Content-Type":"application/json",
+        "Authorization" : `Bearer ${this.myToken()}`
+      },
+      body: JSON.stringify( {description: desc} )
+    })
+    .then(response => response.json())
+    .then(data => this.updateCurrentPlayer(data))
+  }
+
   render() {
     return(
       <Fragment>
@@ -172,6 +184,7 @@ class App extends Component {
                 horses={this.state.horses}
                 transactions={this.state.transactions}
                 description={this.state.description}
+                updatePlayerDesc={this.updatePlayerDesc}
               />
             ) : this.redirectToLogin() } />
             <Route exact path="/login" render={() => this.state.currentUser ?

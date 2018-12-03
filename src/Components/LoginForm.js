@@ -38,34 +38,55 @@ class LoginForm extends React.Component {
       })
   }
 
+  valid = (player) => {
+    return player.name && player.email && player.password ?  true :  false
+  }
+
   handlePlayerCreateSubmit = () => {
-    fetch(URL + "players", {
-      method: 'POST',
-      headers: {
-          'Content-Type' : 'application/json',
-          "accept" : 'application/json'
-      },
-      body: JSON.stringify({
-        player: {
-          name: this.state.name,
-          email: this.state.email,
-          password: this.state.password
+    const player = {
+      player: {
+        name: this.state.name,
+        email: this.state.email,
+        password: this.state.password
+      }
+    }
+    if (this.valid(player)) {
+      fetch(URL + "players", {
+        method: 'POST',
+        headers: {
+            'Content-Type' : 'application/json',
+            "accept" : 'application/json'
+        },
+        body: JSON.stringify({
+          player: {
+            name: this.state.name,
+            email: this.state.email,
+            password: this.state.password
+          }
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if(data.error) {
+          alert('invalid username or password')
+        } else {
+          localStorage.setItem('token', data.token)
+          this.props.updateCurrentPlayer(data.player)
         }
       })
-    })
-    .then(response => response.json())
-    .then(data => {
-      if(data.error) {
-        alert('invalid username or password')
-      } else {
-        localStorage.setItem('token', data.token)
-        this.props.updateCurrentPlayer(data.player)
-      }
-    })
+    } else {
+      alert("Not a valid player")
+    }
+
   }
 
   toggleNewUser = () => {
-    this.setState({newUser: !this.state.newUser})
+    this.setState({
+      newUser: !this.state.newUser,
+      name: "",
+      email: "",
+      password: ""
+    })
   }
 
   render() {
@@ -98,7 +119,7 @@ class LoginForm extends React.Component {
               value={this.state.password}
             />
             <Button.Group >
-              <Button onClick={this.toggleNewUser}>Already a Player</Button>
+              <Button type="button" onClick={this.toggleNewUser}>Already a Player</Button>
               <Button type="submit">Create Account</Button>
             </Button.Group>
           </Form>
@@ -124,7 +145,7 @@ class LoginForm extends React.Component {
               value={this.state.password}
             />
             <Button.Group>
-              <Button onClick={this.toggleNewUser}>Create a new Account</Button>
+              <Button type="button" onClick={this.toggleNewUser}>Create a new Account</Button>
               <Button type="submit">Login</Button>
             </Button.Group>
           </Form >
