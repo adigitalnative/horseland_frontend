@@ -9,6 +9,7 @@ class HorseFormModal extends Component {
       color: '',
       sale_price: 0,
       image_url: "",
+      modalOpen: false
     }
   }
 
@@ -21,6 +22,11 @@ class HorseFormModal extends Component {
     })
   }
 
+  handleOpen = () => this.setState({modalOpen: true})
+
+  handleClose = () => this.setState({modalOpen: false})
+
+
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value })
   }
@@ -31,16 +37,23 @@ class HorseFormModal extends Component {
       color: this.state.color,
       sale_price: this.state.sale_price,
       imageUrl: this.state.image_url,
-      id: this.props.horse.id
+      id: this.props.horse.id,
     }
 
     this.props.updateHorse(horseParams)
+    this.handleClose()
   }
 
   render() {
     let {horse} = this.props
     return (
-      <Modal trigger={<Button>Edit</Button>} centered={false} dimmer='blurring' closeIcon>
+      <Modal trigger={<Button onClick={this.handleOpen}>Edit</Button>}
+        centered={false}
+        dimmer='blurring'
+        closeIcon
+        open={this.state.modalOpen}
+        onClose={this.handleClose}
+      >
         <Modal.Header>Edit {horse.name}</Modal.Header>
         <Modal.Content>
           <Modal.Description>
