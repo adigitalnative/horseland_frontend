@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {Modal, Button, Form, Image} from 'semantic-ui-react'
+import {Modal, Button, Form} from 'semantic-ui-react'
 
 class HorseFormModal extends Component {
   constructor() {

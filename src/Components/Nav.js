@@ -1,24 +1,24 @@
-import React, {Fragment} from 'react'
+import React from 'react'
 import {Menu, Icon, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
-const Header = ({name, balance}) => {
+const Nav = (props) => {  
   return(
     <div>
       <Menu inverted>
           <Menu.Item as={Link} to="/" header>
             Horseland
           </Menu.Item>
-          <Menu.Item as={Link} to="/">
+          <Menu.Item as={Link} to="/horses">
             Horses
           </Menu.Item>
           {
-            name ? (
+            props.playerName ? (
                 <Menu.Item position="right" as={Link} to="/profile">
-                  <Icon name="user outline"/> {name}
+                  <Icon name="user outline"/> {props.playerName}
                   <Divider vertical />
 
-                  <Icon name="dollar sign" /> {balance}
+                  <Icon name="dollar sign" /> {props.balance}
 
                 </Menu.Item>
             ) : null
@@ -29,4 +29,4 @@ const Header = ({name, balance}) => {
   )
 }
 
-export default Header
+export default Nav
