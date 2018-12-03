@@ -109,7 +109,6 @@ class App extends Component {
   }
 
   allHorses = () => {
-    console.log([...this.state.horses, ...this.state.available_horses])
     return [...this.state.horses, ...this.state.available_horses]
   }
 
