@@ -3,7 +3,6 @@ import {Menu, Icon, Divider} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const Nav = (props) => {
-  console.log(props)
   return(
     <div>
       <Menu inverted>

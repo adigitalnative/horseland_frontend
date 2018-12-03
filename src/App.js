@@ -39,33 +39,30 @@ class App extends Component {
     })
   }
 
-
+  myToken = () => localStorage.getItem('token')
 
   // This needs to take into consideration a failed login!
   componentDidMount() {
-    let token = localStorage.getItem('token')
+    let token = this.myToken()
     if(token) {
       fetch(URL + "player", {
         method: "GET",
-        header: {
-          "Authentication" : `Bearer ${token}`
+        headers: {
+          "Authorization" : `Bearer ${token}`
         }
       }).then(res => res.json())
       .then(data => {
-        console.log(data)
-        // Set the data apropriately
+        this.updateCurrentPlayer(data)
       })
-    } else {
-      console.log("No Token")
     }
-
   }
 
   setHorseForSale = horse => {
     fetch(URL + `players/1/horses/${horse.id}/toggle_for_sale`, {
       method: "PATCH",
       headers: {
-        "Content-Type":"application/json"
+        "Content-Type":"application/json",
+        "Authorization" : `Bearer ${this.myToken()}`
       }
     })
       .then(response => response.json())
@@ -80,7 +77,8 @@ class App extends Component {
     fetch(URL + `purchase_horse`, {
       method: "PATCH",
       headers: {
-        "Application-Content":"application/json"
+        "Application-Content":"application/json",
+        "Authorization" : `Bearer ${this.myToken()}`
       },
       body: JSON.stringify({
         playerId: this.state.playerId,
@@ -100,7 +98,8 @@ class App extends Component {
     fetch(URL + `horses/${horseParams.id}`, {
       method: "PATCH",
       headers: {
-        "Content-Type" : "application/json"
+        "Content-Type" : "application/json",
+        "Authorization" : `Bearer ${this.myToken()}`
       },
       body: JSON.stringify(horseParams)
     }).then(response => response.json())

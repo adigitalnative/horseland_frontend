@@ -14,7 +14,6 @@ class LoginForm extends React.Component {
   }
 
   handleLoginSubmit = () => {
-    console.log("Trying to log in")
     fetch(URL + "login", {
       method: "POST",
       headers: {
