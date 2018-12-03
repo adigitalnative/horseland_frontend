@@ -5,12 +5,7 @@ import {Card, Divider} from 'semantic-ui-react'
 
 const PlayerHorseList = ({
                             horses,
-                            currentHorse,
-                            setCurrentHorse,
-                            clearCurrentHorse,
-                            setHorseForSale,
                             availableHorses,
-                            updateHorse
                           }) => {
   return(
     <div>
