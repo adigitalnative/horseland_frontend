@@ -109,11 +109,12 @@ class App extends Component {
   }
 
   allHorses = () => {
+    console.log([...this.state.horses, ...this.state.available_horses])
     return [...this.state.horses, ...this.state.available_horses]
   }
 
   displayHorse = (horseId) => {
-    if (this.state.horses.length > 0) {
+    if (this.allHorses().length > 0) {
       const horse = this.allHorses().find(horse => horse.id === parseInt(horseId))
       return <HorseDetail
         horse={horse}
