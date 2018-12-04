@@ -5,6 +5,13 @@ import CompetitionHorseCard from '../Components/CompetitionHorseCard'
 
 const URL = "http://localhost:3001/api/v1/"
 
+// BIG CAVEAT!!!
+//
+// This state should really live higher up, so that when you enter a horse, the
+// state of the app is changed with the new transaction which is then displayed
+// to the user. BUT as this is an intentionally pre-redux project, I'm going to
+// leave it as-is for now and try to bring Redux in in the future.
+
 class ShowList extends Component {
   constructor() {
     super()

@@ -57,6 +57,10 @@ class App extends Component {
 
   // This needs to take into consideration a failed login!
   componentDidMount() {
+    this.checkToken()
+  }
+
+  checkToken = () => {
     let token = this.myToken()
     if(token) {
       fetch(URL + "player", {
@@ -64,10 +68,9 @@ class App extends Component {
         headers: {
           "Authorization" : `Bearer ${token}`
         }
-      }).then(res => res.json())
-      .then(data => {
-        this.updateCurrentPlayer(data)
       })
+      .then(response => response.json())
+      .then(data => { this.updateCurrentPlayer(data) })
     }
   }
 

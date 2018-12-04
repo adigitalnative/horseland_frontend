@@ -35,7 +35,7 @@ class PlayerProfile extends Component {
   displayDescForm = () => {
     return (
       <Form onSubmit={this.handleDescUpdate}>
-        <Form.Input label="Description" value={this.state.description} onChange={this.handleChange} name="description"/>
+        <Form.TextArea label="Description" value={this.state.description} onChange={this.handleChange} name="description" type="text"/>
         <Button type="button" onClick={this.toggleDescForm}>Cancel</Button>
         <Button type="submit">Save</Button>
       </Form>
