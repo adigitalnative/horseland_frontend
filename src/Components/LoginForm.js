@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Form, Segment, Message } from "semantic-ui-react";
+import { Button, Form, Segment} from "semantic-ui-react";
 
 const URL = "http://localhost:3001/api/v1/"
 
@@ -39,7 +39,7 @@ class LoginForm extends React.Component {
   }
 
   valid = (player) => {
-    return player.name && player.email && player.password ?  true :  false
+    return player.player.name && player.player.email && player.player.password ?  true :  false
   }
 
   handlePlayerCreateSubmit = () => {

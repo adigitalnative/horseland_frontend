@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import {Menu, Icon, Divider, Button, Label} from 'semantic-ui-react'
+import {Menu, Button} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const Nav = (props) => {

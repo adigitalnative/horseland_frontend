@@ -25,6 +25,7 @@ class App extends Component {
       balance: null,
       transactions: null,
       description: null,
+      playerImage: null
     }
   }
 
@@ -47,6 +48,7 @@ class App extends Component {
         balance: player.bank_balance,
         transactions: player.transactions,
         description: player.description,
+        playerImage: player.image_url
       })
     })
 
@@ -69,8 +71,14 @@ class App extends Component {
           "Authorization" : `Bearer ${token}`
         }
       })
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) { throw response }
+        return response.json() // Only reached if no error
+      })
       .then(data => { this.updateCurrentPlayer(data) })
+      .catch(error => {
+        this.logout()
+      })
     }
   }
 
@@ -170,17 +178,21 @@ class App extends Component {
       transactions: null,
       description: null,
       viewingPlayer: null,
+      playerImage: null
      })
   }
 
-  updatePlayerDesc = (desc) => {
+  updatePlayer = (desc, image) => {
     fetch(URL + "player", {
       method: "PATCH",
       headers: {
         "Content-Type":"application/json",
         "Authorization" : `Bearer ${this.myToken()}`
       },
-      body: JSON.stringify( {description: desc} )
+      body: JSON.stringify( {
+        description: desc,
+        image_url: image
+      })
     })
     .then(response => response.json())
     .then(data => this.updateCurrentPlayer(data))
@@ -203,7 +215,9 @@ class App extends Component {
                 horses={this.state.horses}
                 transactions={this.state.transactions}
                 description={this.state.description}
-                updatePlayerDesc={this.updatePlayerDesc}
+                updatePlayer={this.updatePlayer}
+                playerName={this.state.name}
+                playerImage={this.state.playerImage}
               />
             ) : this.redirectToLogin() } />
             <Route exact path="/login" render={() => this.state.currentUser ?

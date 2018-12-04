@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react'
-import {Divider, Item, Button, Modal, Card, Image} from 'semantic-ui-react'
+import {Divider, Item, Button, Modal, Card} from 'semantic-ui-react'
 import CompetitionHorseCard from '../Components/CompetitionHorseCard'
 
 
@@ -96,7 +96,7 @@ class ShowList extends Component {
                 </Item.Header>
                 <Item.Extra>
                   {show.competitions.map(competition => (
-                    <Modal trigger={<Button key={competition.id} size="tiny">{competition.name}</Button>}>
+                    <Modal trigger={<Button key={competition.id} size="tiny">{competition.name}</Button>} key={competition.id}>
                     <Modal.Header>{show.name}: {competition.name}</Modal.Header>
                       <Modal.Content>
                         <Modal.Description>
@@ -104,14 +104,14 @@ class ShowList extends Component {
                           <h3>Entered Horses</h3>
                           <Card.Group itemsPerRow={6}>
                             {competition.horses.map(horse => (
-                              <CompetitionHorseCard horse={horse} toggleCompetition={this.withdrawFromCompetition} competition={competition} show={show}/>
+                              <CompetitionHorseCard horse={horse} toggleCompetition={this.withdrawFromCompetition} competition={competition} show={show} key={competition.id}/>
                             ))}
                           </Card.Group>
 
                           <h3>Available to Enter</h3>
                           <Card.Group itemsPerRow={6}>
                             {this.availableForCompetition(competition, this.props.playerHorses).map(horse => (
-                              <CompetitionHorseCard horse={horse} toggleCompetition={this.enterInCompetition} competition={competition} show={show} />
+                              <CompetitionHorseCard horse={horse} toggleCompetition={this.enterInCompetition} competition={competition} show={show}  key={competition.id}/>
                             ))}
                           </Card.Group>
                         </Modal.Description>

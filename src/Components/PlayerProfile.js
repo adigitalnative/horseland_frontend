@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import {Header, Image, Divider, Card, Item, Form, Button} from 'semantic-ui-react'
+import {Header, Image, Divider, Card, Item, Form, Button, Icon} from 'semantic-ui-react'
 import HorseCard from './HorseCard'
 
 class PlayerProfile extends Component {
   state = {
     description: this.props.description,
+    playerImage: this.props.playerImage,
     showDescForm: false
   }
 
@@ -28,13 +29,14 @@ class PlayerProfile extends Component {
   }
 
   handleDescUpdate = () => {
-    this.props.updatePlayerDesc(this.state.description)
+    this.props.updatePlayer(this.state.description, this.state.playerImage)
     this.toggleDescForm()
   }
 
   displayDescForm = () => {
     return (
       <Form onSubmit={this.handleDescUpdate}>
+        <Form.Input label="Image" value={this.state.playerImage} onChange={this.handleChange} name="playerImage"/>
         <Form.TextArea label="Description" value={this.state.description} onChange={this.handleChange} name="description" type="text"/>
         <Button type="button" onClick={this.toggleDescForm}>Cancel</Button>
         <Button type="submit">Save</Button>
@@ -43,16 +45,20 @@ class PlayerProfile extends Component {
   }
 
   render() {
-    let {horses, transactions, description} = this.props
+    let {horses, transactions} = this.props
     return(
       <div>
         <Header as="h2" icon textAlign='center' >
-          <Image src="http://s3.amazonaws.com/jq-actorsite-prod/photos/images/000/000/008/large/2011_headshot_henson1.jpg?1490066308" circular/>
-          <Header.Content>Jacqueline</Header.Content>
+          {this.props.playerImage ? (
+            <Image src={this.props.playerImage} rounded/>
+          ) : (
+            <Icon name="user secret" size="huge"/>
+          )}
+
+          <Header.Content>{this.props.playerName}</Header.Content>
         </Header>
         <Divider horizontal>About</Divider>
           {this.state.showDescForm ? this.displayDescForm() : this.displayDescHtml()}
-
         <Divider horizontal>Your Horses</Divider >
         {<Card.Group itemsPerRow={5}>
           {horses.map(horse => <HorseCard horse={horse} key={horse.id}/>)}
