@@ -16,6 +16,7 @@ class PlayerProfile extends Component {
 
   displayDescHtml = () => {
     if(this.props.description) {
+      console.log(this.props.description)
       /* 'description' input is santized server-side */
       return <div dangerouslySetInnerHTML={{__html: this.props.description }} onClick={this.toggleDescForm} />
     } else {

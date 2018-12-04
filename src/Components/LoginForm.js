@@ -126,8 +126,6 @@ class LoginForm extends React.Component {
         ) : (
           <Form
             onSubmit={this.handleLoginSubmit}
-            size="mini"
-            key="mini"
           >
             <Form.Input
               label="Email"

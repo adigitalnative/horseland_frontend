@@ -7,6 +7,7 @@ import PlayerHorseList from './Containers/PlayerHorseList'
 import HorseDetail from './Components/HorseDetail'
 import LoginForm from './Components/LoginForm'
 import NotFound from './Components/NotFound'
+import ShowList from './Containers/ShowList'
 
 
 const URL = "http://localhost:3001/api/v1/"
@@ -23,7 +24,7 @@ class App extends Component {
       playerId: null,
       balance: null,
       transactions: null,
-      description: null
+      description: null,
     }
   }
 
@@ -45,7 +46,7 @@ class App extends Component {
         available_horses: availHorses,
         balance: player.bank_balance,
         transactions: player.transactions,
-        description: player.description
+        description: player.description,
       })
     })
 
@@ -100,19 +101,11 @@ class App extends Component {
     })
       .then(response => response.json())
       .then(horseData => {
-        fetch(URL + "horses/available",{
-          method: "GET",
-          headers: {
-            "Authorization" : `Bearer ${this.myToken()}`
-          }
-        }).then(response => response.json())
-        .then(availableHorses => {
-          this.setState({
-            horses: horseData.horses,
-            transactions: horseData.transactions,
-            balance: horseData.bank_balance,
-            available_horses: availableHorses
-          })
+        this.setState({
+          horses: horseData.horses,
+          transactions: horseData.transactions,
+          balance: horseData.bank_balance,
+          available_horses: horseData.available_horses
         })
       }
     )
@@ -173,7 +166,7 @@ class App extends Component {
       balance: null,
       transactions: null,
       description: null,
-      viewingPlayer: null
+      viewingPlayer: null,
      })
   }
 
@@ -221,6 +214,7 @@ class App extends Component {
               setCurrentHorse={this.setCurrentHorse}
             />) : this.redirectToLogin() } />
             <Route exact path="/horses/:id" render={(event) => this.state.currentUser ? this.displayHorse(event.match.params.id) : this.redirectToLogin()} />
+            <Route exact path="/shows" render={() => this.state.currentUser ? <ShowList playerHorses={this.state.horses}/> : this.redirectToLogin()} />
             <Route component={NotFound} />
           </Switch>
         </Container>

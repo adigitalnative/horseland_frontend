@@ -1,5 +1,5 @@
 import React, {Fragment} from 'react'
-import {Menu, Icon, Divider} from 'semantic-ui-react'
+import {Menu, Icon, Divider, Button, Label} from 'semantic-ui-react'
 import {Link} from 'react-router-dom'
 
 const Nav = (props) => {
@@ -7,7 +7,7 @@ const Nav = (props) => {
     <div>
       <Menu inverted>
           <Menu.Item as={Link} to="/" header>
-            Horseland
+            The Horseland Game
           </Menu.Item>
           {
             props.playerName ? (
@@ -15,13 +15,25 @@ const Nav = (props) => {
                   <Menu.Item as={Link} to="/horses">
                     Horses
                   </Menu.Item>
-                  <Menu.Item position="right" as={Link} to="/profile">
-                    <Icon name="user outline"/> {props.playerName}
-                    <Divider vertical />
-
-                    <Icon name="dollar sign" /> {props.balance}
-                    <button onClick={props.logout}>Logout</button>
+                  <Menu.Item as={Link} to="/shows">
+                    Shows
                   </Menu.Item>
+                  <Menu.Menu position="right">
+                    <Menu.Item as={Link} to="/profile">
+                      <Button
+                         content={props.playerName}
+                         icon='user outline'
+                         label={{ basic: true, content: props.balance }}
+                         labelPosition='right'
+                         color="violet"
+                         inverted
+                       />
+
+                    </Menu.Item>
+                    <Menu.Item>
+                      <Button inverted color="violet" onClick={props.logout}>Logout</Button>
+                    </Menu.Item>
+                  </Menu.Menu>
                 </Fragment>
             ) : null
           }
