@@ -172,7 +172,8 @@ class App extends Component {
       playerId: null,
       balance: null,
       transactions: null,
-      description: null
+      description: null,
+      viewingPlayer: null
      })
   }
 
@@ -187,17 +188,6 @@ class App extends Component {
     })
     .then(response => response.json())
     .then(data => this.updateCurrentPlayer(data))
-  }
-
-  setAvailableHorses = () => {
-    fetch(URL + "horses/available",{
-      method: "GET",
-      headers: {
-        "Authorization" : `Bearer ${this.myToken()}`
-      }
-    })
-    .then(response => response.json())
-    .then(data => console.log(data))
   }
 
   render() {
